@@ -319,6 +319,25 @@ class Session
     }
 
     /**
+     * Fetch all flashdata items
+     *
+     * @access  public
+     * @return array
+     */
+    public function all_flashdata()
+    {
+        $all_flash = array();
+        foreach ($this->all_userdata() as $key => $value) {
+            $parts = explode(':old:', $key);
+            if(is_array($parts) && count($parts) === 2){
+                $all_flash[$parts[1]] = $value;
+            }
+        }
+
+        return $all_flash;
+    }
+
+    /**
      * Identifies flashdata as 'old' for removal
      * when _flashdata_sweep() runs.
      *
